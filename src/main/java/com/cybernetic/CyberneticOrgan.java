@@ -1,6 +1,5 @@
 package com.cybernetic;
 
-
 public class CyberneticOrgan {
     private String id;
     private String model;
@@ -16,6 +15,10 @@ public class CyberneticOrgan {
 
     public String getModel() {
         return model;
+    }
+
+    public String getFunctionality() {
+        return functionality;
     }
 
     public String getDetails() {

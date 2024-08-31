@@ -7,25 +7,46 @@ public class Patient {
     private final String name;
     private int age;
     private String medicalHistory;
-    private List<CyberneticOrgan> installedOrgans;
+    private CyberneticOrgan[] installedOrgans;
+    private int organCount;
 
     public Patient(String name, int age, String medicalHistory) {
         this.name = name;
         this.age = age;
         this.medicalHistory = medicalHistory;
-        this.installedOrgans = new ArrayList<>();
+        this.installedOrgans = new CyberneticOrgan[5];
+        this.organCount = 0;
     }
 
-    public void addOrgan(CyberneticOrgan organ) {
-        installedOrgans.add(organ);
-        // Simplified confirmation message
-        System.out.println("Organ added: " + organ.getDetails());
+    public String getName() {
+        return name;
+    }
+
+    public String addOrgan(CyberneticOrgan organ) {
+        if (organCount < installedOrgans.length) {
+            installedOrgans[organCount++] = organ;
+            return "Organ added: " + organ.getDetails();
+        } else {
+            return "No space available to add more organs.";
+        }
+    }
+
+    public List<CyberneticOrgan> getOrganList() {
+        List<CyberneticOrgan> organList = new ArrayList<>();
+        for (int i = 0; i < organCount; i++) {
+            organList.add(installedOrgans[i]);
+        }
+        return organList;
     }
 
     public String getPatientInfo() {
         StringBuilder info = new StringBuilder("Name: " + name + ", Age: " + age + ", Medical History: " + medicalHistory + ", Installed Organs: ");
-        for (CyberneticOrgan organ : installedOrgans) {
-            info.append("\n").append(organ.getDetails());
+        if (organCount == 0) {
+            info.append("None");
+        } else {
+            for (int i = 0; i < organCount; i++) {
+                info.append("\n").append(installedOrgans[i].getDetails());
+            }
         }
         return info.toString();
     }
