@@ -4,7 +4,7 @@ A futuristic company specializing in creating bio-compatible cybernetic organs f
 
 
 
-## Classes
+## Classes [UML diagram](www.plantuml.com/plantuml/png/hL71IiD04BtdAvOzfKgANaMa40yM50M_O9ATXe7Dh6GdXIB-kxlT9DXjmKjpICZCUu_ttcoym21ZRulMWlUgFZGuC0grxqC7hBuB5PwAZ7fGn9B-UcVGXi6d3CHTckr6ReKSWoKvPBlMzLyWrD3vxhP3UKO1ihvSPIlozKIqMCOlijGNfIApSSuYyABw5at-rVmffemVIMhEnj1ZPXWwFCcBXbgmB-J53NauOYzWBPfZOJviNmFkCIloAVa2as2bY--0pM3HxjwHML9CNhUySnUp75bRtYD7Qykvvi6LtIJqwVbNvxneRovPtsjLLKhVhTStEWS6gixwqqKMwN-16QgB3R8PU_iB):
 
 ### CyberneticOrgan
 - Attributes: `id`, `model`, `functionality`, `compatibility`
