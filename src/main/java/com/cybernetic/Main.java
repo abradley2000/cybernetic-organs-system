@@ -1,24 +1,31 @@
 package com.cybernetic;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        // Create instances of CyberneticOrgan
-        CyberneticOrgan heart = new CyberneticOrgan("1", "CyberHeartX1", "Pumps blood", "A");
-        CyberneticOrgan eye = new CyberneticOrgan("2", "CyberEyeV2", "Enhanced vision", "B");
-
         // Create an instance of OrganInventory and add organs
-        OrganInventory inventory = new OrganInventory();
         System.out.println("Adding organs to inventory...");
-        inventory.addOrgan(heart);
-        System.out.println("Added " + heart.getModel() + " to inventory.");
-        inventory.addOrgan(eye);
-        System.out.println("Added " + eye.getModel() + " to inventory.");
+
+        // build the organ inventory from buildOrganInventory method then add the organs to the inventory
+        List<CyberneticOrgan> organs = buildOrganInventory();
+        OrganInventory inventory = new OrganInventory();
+        for (CyberneticOrgan organ: organs) {
+            inventory.addOrgan(organ);
+        }
+
 
         // Create an instance of Patient and add an organ
         Patient patient = new Patient("John Doe", 30, "Healthy");
         System.out.println("Adding organs to patient " + patient.getName() + "...");
-        System.out.println(patient.addOrgan(heart));
+        //get one random organ from the inventory and add it to the patient using math.random
 
+        int i = (int) (Math.random() * inventory.getOrganList().size());
+        patient.addOrgan(inventory.getOrganList().get(i));
         // List installed organs for the patient
         System.out.println("Listing installed organs for " + patient.getName() + ":");
         for (CyberneticOrgan organ : patient.getOrganList()) {
@@ -40,5 +47,25 @@ public class Main {
         for (CyberneticOrgan organ : sortedOrgans) {
             System.out.println("- " + organ.getModel());
         }
+    }
+
+    private static List<CyberneticOrgan> buildOrganInventory() {
+        //read the csv file
+        String csvFile = "src/main/resources/sample-organ-list.csv";
+        String line;
+        String cvsSplitBy = ",";
+        List<CyberneticOrgan> inventory = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            br.readLine(); // skip the header
+            while ((line = br.readLine()) != null) {
+                // use comma as separator
+                String[] organ = line.split(cvsSplitBy);
+                CyberneticOrgan newOrgan = new CyberneticOrgan(organ[0].trim(), organ[1].trim(), organ[2].trim(), organ[3].trim());
+                inventory.add(newOrgan);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inventory;
     }
 }

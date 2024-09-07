@@ -37,6 +37,7 @@ public class Patient {
             organList.add(installedOrgans[i]);
         }
         return organList;
+
     }
 
     public String getPatientInfo() {

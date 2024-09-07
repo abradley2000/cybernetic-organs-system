@@ -12,23 +12,31 @@ public class OrganInventory {
         this.inventory = new ArrayList<>();
     }
 
+    //2
     public void addOrgan(CyberneticOrgan organ) {
         inventory.add(organ);
-        // Simplified confirmation message
-        System.out.println("Organ added to inventory: " + organ.getDetails());
+        System.out.println("Added "+organ.getModel()+" to inventory");
+
     }
 
-    public CyberneticOrgan getOrgan(String model) {
-        for (CyberneticOrgan organ : inventory) {
-            if (organ.getModel().equals(model)) {
-                return organ;
+    public List<CyberneticOrgan> getOrganList() {
+        return new ArrayList<>(inventory);
+    }
+
+    public void removeOrgan(String organ) {
+        List<CyberneticOrgan> removedOrgans = new ArrayList<>();
+        for (CyberneticOrgan invOrgan : inventory) {
+            if (invOrgan.getModel().equals(organ)) {
+                removedOrgans.add(invOrgan);
+                inventory.remove(invOrgan);
             }
         }
-        // Return a dummy organ or a simple message for now
-        System.out.println("Organ with model " + model + " not found.");
-        return null;
+        System.out.println("Organ removed from inventory: " + removedOrgans);
     }
 
+
+
+    //3. search organs by functionality
     public List<CyberneticOrgan> searchOrganByFunctionality(String functionality) {
         List<CyberneticOrgan> result = new ArrayList<>();
         for (CyberneticOrgan organ : inventory) {
@@ -39,21 +47,23 @@ public class OrganInventory {
         return result;
     }
 
-    //sort organs by model
+
+    //4. sort organs by model
+
     public List<CyberneticOrgan> sortOrgansByModel() {
-        Collections.sort(inventory, new Comparator<CyberneticOrgan>() {
-            @Override
-            public int compare(CyberneticOrgan o1, CyberneticOrgan o2) {
-                return o1.getModel().compareTo(o2.getModel());
-            }
-        });
+        inventory.sort(Comparator.comparing(CyberneticOrgan::getModel));
         return new ArrayList<>(inventory);
     }
 
 
-    //sort organs by functionality using bubble sort
+
+
+
+
+    //4 sort organs by functionality using bubble sort
     public List<CyberneticOrgan> sortOrgansByFunctionality() {
         int n = inventory.size();
+
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
                 if (inventory.get(j).getFunctionality().compareTo(inventory.get(j + 1).getFunctionality()) > 0) {
