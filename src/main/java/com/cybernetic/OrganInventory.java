@@ -56,10 +56,6 @@ public class OrganInventory {
     }
 
 
-
-
-
-
     //4 sort organs by functionality using bubble sort
     public List<CyberneticOrgan> sortOrgansByFunctionality() {
         int n = inventory.size();
