@@ -1,5 +1,6 @@
 package com.cybernetic;
 
+import com.cybernetic.organs.Heart;
 import com.cybernetic.organs.Organ;
 
 import java.io.BufferedReader;
@@ -50,8 +51,8 @@ public class Main {
             br.readLine(); // skip the header
             while ((line = br.readLine()) != null) {
                 // use comma as separator
-                String[] organ = line.split(cvsSplitBy);
-                Organ newOrgan = new Organ(UUID.randomUUID().toString(), organ[0].trim(), organ[1].trim(), organ[2].trim());
+                String[] organ= line.split(cvsSplitBy);
+                Organ newOrgan = new Organ( organ[1].trim(),organ[0].trim(), organ[2].trim(),organ[3].trim());
                 inventory.add(newOrgan);
             }
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-organName,model,functionality,compatibility
+name,model,functionality,compatibility
 Kidney,CyberKidneyX4,Regulates electrolytes,Type AB
 Heart,CyberHeartX1,Pumps blood,Type O
 Arm,CyberArmG7,Enhanced strength,Universal
