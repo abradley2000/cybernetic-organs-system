@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,41 +15,29 @@ public class Main {
         // build the organ inventory from buildOrganInventory method then add the organs to the inventory
         List<CyberneticOrgan> organs = buildOrganInventory();
         OrganInventory inventory = new OrganInventory();
-        for (CyberneticOrgan organ: organs) {
+        for (CyberneticOrgan organ : organs) {
             inventory.addOrgan(organ);
         }
 
 
-        // Create an instance of Patient and add an organ
-        Patient patient = new Patient("John Doe", 30, "Healthy");
-        System.out.println("Adding organs to patient " + patient.getName() + "...");
-        //get one random organ from the inventory and add it to the patient using math.random
-
-        int i = (int) (Math.random() * inventory.getOrganList().size());
-        patient.addOrgan(inventory.getOrganList().get(i));
-        // List installed organs for the patient
-        System.out.println("Listing installed organs for " + patient.getName() + ":");
-        for (CyberneticOrgan organ : patient.getOrganList()) {
-            System.out.println("- " + organ.getModel() + ": " + organ.getFunctionality());
+        //1. search in OrganInventory
+        String organToSearch = "CyberLiverQ4";
+        CyberneticOrgan organ = inventory.findOrganByModel(organToSearch);
+        if (organ == null) {
+            System.out.println("Organ: " + organToSearch + " not found");
+        } else {
+            System.out.println("Organ: " + organToSearch + " found detail: " + organ.getDetails());
         }
 
-        // Search for organs with functionality 'Enhanced vision'
-        System.out.println("Searching for organs with functionality 'Enhanced vision'...");
-        var searchResults = inventory.searchOrganByFunctionality("Enhanced vision");
-        System.out.println("Found " + searchResults.size() + " organ(s):");
-        for (CyberneticOrgan organ : searchResults) {
-            System.out.println("- " + organ.getModel() + ": " + organ.getFunctionality());
-        }
 
-        // Sort organs by model name in inventory
-        System.out.println("Sorting organs by model name in inventory...");
-        var sortedOrgans = inventory.sortOrgansByModel();
-        System.out.println("Sorted organs:");
-        for (CyberneticOrgan organ : sortedOrgans) {
-            System.out.println("- " + organ.getModel());
-        }
+        //2. deduplicate the inventory
+        System.out.println("Before deduplication: Total organs in inventory: " + inventory.getOrganList().size());
+        inventory.removeDuplicateOrgans();
+        System.out.println("After deduplication: Total organs in inventory: " + inventory.getOrganList().size());
+
     }
 
+    //3.1
     private static List<CyberneticOrgan> buildOrganInventory() {
         //read the csv file
         String csvFile = "src/main/resources/sample-organ-list.csv";
@@ -60,7 +49,7 @@ public class Main {
             while ((line = br.readLine()) != null) {
                 // use comma as separator
                 String[] organ = line.split(cvsSplitBy);
-                CyberneticOrgan newOrgan = new CyberneticOrgan(organ[0].trim(), organ[1].trim(), organ[2].trim(), organ[3].trim());
+                CyberneticOrgan newOrgan = new CyberneticOrgan(UUID.randomUUID().toString(), organ[0].trim(), organ[1].trim(), organ[2].trim());
                 inventory.add(newOrgan);
             }
         } catch (IOException e) {

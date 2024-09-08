@@ -20,56 +20,41 @@ public class OrganInventory {
     }
 
     public List<CyberneticOrgan> getOrganList() {
-        return new ArrayList<>(inventory);
+        return Collections.unmodifiableList(inventory);
     }
 
-    public void removeOrgan(String organ) {
-        List<CyberneticOrgan> removedOrgans = new ArrayList<>();
-        for (CyberneticOrgan invOrgan : inventory) {
-            if (invOrgan.getModel().equals(organ)) {
-                removedOrgans.add(invOrgan);
-                inventory.remove(invOrgan);
+    //3.3
+    public CyberneticOrgan findOrganByModel(String model){
+        return findOrganByModel(model,0);
+    }
+
+    private CyberneticOrgan findOrganByModel(String model,int index){
+        if(index >= inventory.size()){
+            return null;
+        }
+        if(inventory.get(index).getModel().equals(model)){
+            return inventory.get(index);
+        }
+        return findOrganByModel(model,index+1);
+    }
+
+    //3.2
+    public void removeDuplicateOrgans(){
+        removeDuplicateOrgans(0);
+    }
+
+    private void removeDuplicateOrgans(int i) {
+        if (i >= inventory.size()) {
+            return;
+        }
+        CyberneticOrgan organ = inventory.get(i);
+        for (int j = i + 1; j < inventory.size(); j++) {
+            if (organ.getModel().equals(inventory.get(j).getModel())) {
+                inventory.remove(j);
+                j--;
             }
         }
-        System.out.println("Organ removed from inventory: " + removedOrgans);
+        removeDuplicateOrgans(i + 1);
     }
 
-
-
-    //3. search organs by functionality
-    public List<CyberneticOrgan> searchOrganByFunctionality(String functionality) {
-        List<CyberneticOrgan> result = new ArrayList<>();
-        for (CyberneticOrgan organ : inventory) {
-            if (organ.getFunctionality().equals(functionality)) {
-                result.add(organ);
-            }
-        }
-        return result;
-    }
-
-
-    //4. sort organs by model
-
-    public List<CyberneticOrgan> sortOrgansByModel() {
-        inventory.sort(Comparator.comparing(CyberneticOrgan::getModel));
-        return new ArrayList<>(inventory);
-    }
-
-
-    //4 sort organs by functionality using bubble sort
-    public List<CyberneticOrgan> sortOrgansByFunctionality() {
-        int n = inventory.size();
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (inventory.get(j).getFunctionality().compareTo(inventory.get(j + 1).getFunctionality()) > 0) {
-                    // Swap inventory[j] and inventory[j+1]
-                    CyberneticOrgan temp = inventory.get(j);
-                    inventory.set(j, inventory.get(j + 1));
-                    inventory.set(j + 1, temp);
-                }
-            }
-        }
-        return new ArrayList<>(inventory);
-    }
 }
