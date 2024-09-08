@@ -1,5 +1,7 @@
 package com.cybernetic;
 
+import com.cybernetic.organs.Organ;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,14 +9,14 @@ public class Patient {
     private final String name;
     private int age;
     private String medicalHistory;
-    private CyberneticOrgan[] installedOrgans;
+    private Organ[] installedOrgans;
     private int organCount;
 
     public Patient(String name, int age, String medicalHistory) {
         this.name = name;
         this.age = age;
         this.medicalHistory = medicalHistory;
-        this.installedOrgans = new CyberneticOrgan[5];
+        this.installedOrgans = new Organ[5];
         this.organCount = 0;
     }
 
@@ -22,7 +24,7 @@ public class Patient {
         return name;
     }
 
-    public String addOrgan(CyberneticOrgan organ) {
+    public String addOrgan(Organ organ) {
         if (organCount < installedOrgans.length) {
             installedOrgans[organCount++] = organ;
             return "Organ added: " + organ.getDetails();
@@ -31,8 +33,8 @@ public class Patient {
         }
     }
 
-    public List<CyberneticOrgan> getOrganList() {
-        List<CyberneticOrgan> organList = new ArrayList<>();
+    public List<Organ> getOrganList() {
+        List<Organ> organList = new ArrayList<>();
         for (int i = 0; i < organCount; i++) {
             organList.add(installedOrgans[i]);
         }

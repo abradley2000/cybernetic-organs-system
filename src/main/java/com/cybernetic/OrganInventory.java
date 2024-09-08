@@ -1,34 +1,35 @@
 package com.cybernetic;
 
+import com.cybernetic.organs.Organ;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class OrganInventory {
-    private List<CyberneticOrgan> inventory;
+    private List<Organ> inventory;
 
     public OrganInventory() {
         this.inventory = new ArrayList<>();
     }
 
     //2
-    public void addOrgan(CyberneticOrgan organ) {
+    public void addOrgan(Organ organ) {
         inventory.add(organ);
         System.out.println("Added "+organ.getModel()+" to inventory");
 
     }
 
-    public List<CyberneticOrgan> getOrganList() {
+    public List<Organ> getOrganList() {
         return Collections.unmodifiableList(inventory);
     }
 
     //3.3
-    public CyberneticOrgan findOrganByModel(String model){
+    public Organ findOrganByModel(String model){
         return findOrganByModel(model,0);
     }
 
-    private CyberneticOrgan findOrganByModel(String model,int index){
+    private Organ findOrganByModel(String model, int index){
         if(index >= inventory.size()){
             return null;
         }
@@ -47,7 +48,7 @@ public class OrganInventory {
         if (i >= inventory.size()) {
             return;
         }
-        CyberneticOrgan organ = inventory.get(i);
+        Organ organ = inventory.get(i);
         for (int j = i + 1; j < inventory.size(); j++) {
             if (organ.getModel().equals(inventory.get(j).getModel())) {
                 inventory.remove(j);
