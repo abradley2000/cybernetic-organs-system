@@ -24,6 +24,9 @@ public class Organ {
         this.compatibility = compatibility;
         this.health = 100; // Initial health is 100%
     }
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
