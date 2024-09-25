@@ -1,7 +1,6 @@
 package com.cybernetic;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,10 +20,16 @@ public class Main {
             inventory.addOrgan(organ);
         }
 
-        // sort the inventory by name and then model and then compatibility. Then write the sorted inventory to the new csv file.
-        System.out.println("Sorting inventory by name, model, and compatibility...");
-        List<Organ> sortedOrgans = inventory.sortOrganBy("name", "model", "compatibility");
+        System.out.println("Sorting inventory by name, model, and compatibility...Using Collection.sort");
+        long startTime = System.nanoTime();
+        List<Organ> sortedOrgans = inventory.sortOrganByNameModelAndCompatibilityUsingBuiltInSort();
+        System.out.println("Time taken to sort using collection.sort: " + (System.nanoTime() - startTime) + "ns");
 
+        System.out.println("Sorting inventory by name, model, and compatibility...Using QuickSort");
+        startTime = System.nanoTime();
+        sortedOrgans = inventory.quickSortOrganByNameModelAndCompatibility(inventory.getOrganList());
+        System.out.println("Time taken to sort using quicksort: " + (System.nanoTime() - startTime) + "ns");
+        //Then write the sorted inventory to the new csv file.
         writeOrganInventory(sortedOrgans);
 
         System.out.println("Sorted inventory written to file.");
