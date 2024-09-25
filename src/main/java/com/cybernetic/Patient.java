@@ -1,7 +1,5 @@
 package com.cybernetic;
 
-import com.cybernetic.organs.Organ;
-
 import java.util.ArrayList;
 import java.util.List;
 

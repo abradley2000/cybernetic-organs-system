@@ -1,4 +1,4 @@
-package com.cybernetic.organs;
+package com.cybernetic;
 
 import java.util.UUID;
 
@@ -42,6 +42,9 @@ public class Organ {
 
     public String getFunctionality() {
         return functionality;
+    }
+    public String getCompatibility() {
+        return compatibility;
     }
 
 

@@ -1,14 +1,13 @@
 package com.cybernetic;
 
-import com.cybernetic.organs.Heart;
-import com.cybernetic.organs.Organ;
-
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,25 +21,31 @@ public class Main {
             inventory.addOrgan(organ);
         }
 
+        // sort the inventory by name and then model and then compatibility. Then write the sorted inventory to the new csv file.
+        System.out.println("Sorting inventory by name, model, and compatibility...");
+        List<Organ> sortedOrgans = inventory.sortOrganBy("name", "model", "compatibility");
 
-        //1. search in OrganInventory
-        String organToSearch = "CyberLiverQ4";
-        Organ organ = inventory.findOrganByModel(organToSearch);
-        if (organ == null) {
-            System.out.println("Organ: " + organToSearch + " not found");
-        } else {
-            System.out.println("Organ: " + organToSearch + " found detail: " + organ.getDetails());
-        }
+        writeOrganInventory(sortedOrgans);
 
+        System.out.println("Sorted inventory written to file.");
 
-        //2. deduplicate the inventory
-        System.out.println("Before deduplication: Total organs in inventory: " + inventory.getOrganList().size());
-        inventory.removeDuplicateOrgans();
-        System.out.println("After deduplication: Total organs in inventory: " + inventory.getOrganList().size());
 
     }
 
-    //3.1
+    private static void writeOrganInventory(List<Organ> sortedOrgans) {
+        //write the sorted inventory to a new csv file
+        String csvFile = "src/main/resources/sorted-organ-list.csv";
+        try (PrintWriter writer = new PrintWriter(csvFile)) {
+            writer.write("Model,Name,Functionality,Compatibility\n");
+            for (Organ organ : sortedOrgans) {
+                //write in this order name,model,functionality,compatibility
+                writer.write(organ.getName() + "," + organ.getModel() + "," + organ.getFunctionality() + "," + organ.getCompatibility() + "\n");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static List<Organ> buildOrganInventory() {
         //read the csv file
         String csvFile = "src/main/resources/sample-organ-list.csv";
