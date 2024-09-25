@@ -19,7 +19,7 @@ public class Brain extends Organ {
 
         controlEfficiency = Math.max(50, Math.min(100, controlEfficiency + lung.getOxygenLevel() / 20 - 3 + randomFluctuation));
 
-        updateHealth(-1 + lung.getOxygenLevel() / 25 - 2);
+        updateHealth(-1 + heart.getPumpRate() / 25 - 2);
     }
 
     public int getControlEfficiency() {

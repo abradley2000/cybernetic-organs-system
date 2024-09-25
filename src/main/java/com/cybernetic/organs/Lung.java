@@ -19,7 +19,7 @@ public class Lung extends Organ {
         int randomFluctuation = random.nextInt(MAX_OXYGEN_FLUCTUATION) - (MAX_OXYGEN_FLUCTUATION / 2);
         // Update oxygen level based on heart pump rate and brain control efficiency
         oxygenLevel = Math.max(70, Math.min(100, oxygenLevel + heart.getPumpRate() / 20 - 3 + randomFluctuation));
-        updateHealth(-1 + heart.getPumpRate() / 25 - 2);
+        updateHealth(-1 + brain.getControlEfficiency() / 25 - 2);
     }
 
     public int getOxygenLevel() {

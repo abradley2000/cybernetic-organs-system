@@ -63,7 +63,7 @@ public class OrganSimulator {
     private static void handleRandomEvent(Heart heart, Lung lung, Brain brain, int time) {
         if (random.nextDouble() < 0.1) { // 10% chance
             Organ targetOrgan = new Organ[]{heart, lung, brain}[random.nextInt(3)];
-            int healthChange = random.nextInt(21) - 10; // -10 to +10
+            int healthChange = random.nextInt(11) - 30;
             targetOrgan.updateHealth(healthChange);
             System.out.println("EVENT at Time " + time + ": Random health change for " + targetOrgan.getName() + " by " + healthChange + "%");
         }
