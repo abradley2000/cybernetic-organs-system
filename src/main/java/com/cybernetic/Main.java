@@ -22,7 +22,7 @@ public class Main {
 
         System.out.println("Sorting inventory by name, model, and compatibility...Using Collection.sort");
         long startTime = System.nanoTime();
-        List<Organ> sortedOrgans = inventory.sortOrganByNameModelAndCompatibilityUsingBuiltInSort();
+        List<Organ> sortedOrgans = inventory.sortOrganByNameModelAndCompatibilityUsingBuiltInSort(inventory.getOrganList());
         System.out.println("Time taken to sort using collection.sort: " + (System.nanoTime() - startTime) + "ns");
 
         System.out.println("Sorting inventory by name, model, and compatibility...Using QuickSort");
