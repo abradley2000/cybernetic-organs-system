@@ -3,7 +3,7 @@ package com.cybernetic;
 public class Main {
 
     public static void main(String[] args) {
-        OrganCompatibility inventory = new OrganCompatibility();
+        OrganCompatibilityAnalyzer inventory = new OrganCompatibilityAnalyzer();
 
         // Add sample organs
         inventory.addOrgan(new Organ("O1", "A+", 300, "1-2-3-4-5-6"));

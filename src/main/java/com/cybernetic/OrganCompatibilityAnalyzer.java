@@ -3,11 +3,11 @@ package com.cybernetic;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganCompatibility {
+public class OrganCompatibilityAnalyzer {
     private List<Organ> organs;
     private List<Patient> patients;
 
-    public OrganCompatibility() {
+    public OrganCompatibilityAnalyzer() {
         organs = new ArrayList<>();
         patients = new ArrayList<>();
     }
@@ -47,15 +47,7 @@ public class OrganCompatibility {
         int[][] compatibilityMatrix = createCompatibilityMatrix();
         double[][] resultMatrix = new double[organs.size()][patients.size()];
 
-        for (int i = 0; i < organs.size(); i++) {
-            for (int j = 0; j < patients.size(); j++) {
-                double weightedSum = 0;
-                for (int k = 0; k < 3; k++) {
-                    weightedSum += compatibilityMatrix[i][j * 3 + k] * weights[k];
-                }
-                resultMatrix[i][j] = weightedSum;
-            }
-        }
+        //TODO: calculate the weighted compatibility for each organ-patient pair
 
         return resultMatrix;
     }
