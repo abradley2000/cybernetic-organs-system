@@ -1,12 +1,8 @@
 package com.cybernetic;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OrganManagementSystem {
     private List<Organ> organs;
@@ -18,23 +14,31 @@ public class OrganManagementSystem {
     }
 
     public Set<String> getUniqueBloodTypes() {
-        //TODO: Implement this method
-        throw new UnsupportedOperationException("Not implemented yet");
+        return Stream.concat(
+            organs.stream().map(Organ::getBloodType),
+            patients.stream().map(Patient::getBloodType)
+        ).collect(Collectors.toSet());
     }
 
     public Map<String, List<Patient>> groupPatientsByBloodType() {
-        //TODO: Implement this method
-        throw new UnsupportedOperationException("Not implemented yet");
+        return patients.stream().collect(Collectors.groupingBy(Patient::getBloodType));
     }
 
     public List<Organ> sortOrgansByWeight() {
-        //TODO: Implement this method
-        throw new UnsupportedOperationException("Not implemented yet");
+        List<Organ> sortedOrgans = new ArrayList<>(organs);
+        sortedOrgans.sort(Comparator.comparingInt(Organ::getWeight));
+        return sortedOrgans;
     }
 
     public List<Organ> getTopCompatibleOrgans(Patient patient, int n) {
-        //TODO: Implement this method
-        throw new UnsupportedOperationException("Not implemented yet");
+        // I didn't know how else to get "top" compatibility scores besides creating a new analyzer class instance and use its scoring method
+        OrganCompatibilityAnalyzer analyzer = new OrganCompatibilityAnalyzer();
+        organs.forEach(analyzer::addOrgan);
+        return organs.stream()
+            .filter(organ -> analyzer.calculateCompatibilityScore(organ, patient) > 0)
+            .sorted((organ1, organ2) -> Double.compare(analyzer.calculateCompatibilityScore(organ2, patient), analyzer.calculateCompatibilityScore(organ1, patient)))
+            .limit(n)
+            .collect(Collectors.toList());
     }
 
 

@@ -2,7 +2,7 @@ package com.cybernetic;
 import lombok.Data;
 
 @Data
-class Organ {
+public class Organ {
     private String id;  // New property
     private String name;
     private String bloodType;
@@ -15,5 +15,21 @@ class Organ {
         this.bloodType = bloodType;
         this.weight = weight;
         this.hlaType = hlaType;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getBloodType() {
+        return bloodType;
+    }
+    public int getWeight() {
+        return weight;
+    }
+    public String getHlaType() {
+        return hlaType;
     }
 }
