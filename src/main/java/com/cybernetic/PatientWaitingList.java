@@ -2,15 +2,21 @@ package com.cybernetic;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.StringJoiner;
 
 public class PatientWaitingList {
     private Queue<Patient> waitingList;
+
+    public PatientWaitingList() {
+        this.waitingList = new LinkedList<>();
+    }
+
     /**
      * Add a new patient to the end of the waiting list.
      * @param patient The patient to be added to the waiting list.
      */
     public void addPatient(Patient patient) {
-        throw new UnsupportedOperationException("Method not implemented");
+        waitingList.add(patient);
     }
 
     /**
@@ -18,7 +24,7 @@ public class PatientWaitingList {
      * @return The next patient in the waiting list.
      */
     public Patient removeNextPatient() {
-        throw new UnsupportedOperationException("Method not implemented");
+        return waitingList.remove();
     }
 
     /**
@@ -26,15 +32,21 @@ public class PatientWaitingList {
      * @return True if the waiting list is empty, false otherwise.
      */
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Method not implemented");
-
+        return waitingList.isEmpty();
     }
 
     /**
      * Print the current state of the patient waiting list.
      */
     public void printWaitingList() {
-        throw new UnsupportedOperationException("Method not implemented");
+        System.out.println("Current Waiting Queue:");
+        StringJoiner queue = new StringJoiner(" <--- ");
+        int position = 1;
+        for (Patient patient : waitingList) {
+            queue.add(position + ". [ " + patient.getName() + " ]");
+            position++;
+        }
+        System.out.println(queue);
     }
 
 }
