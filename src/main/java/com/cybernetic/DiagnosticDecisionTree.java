@@ -18,7 +18,17 @@ public class DiagnosticDecisionTree {
     }
 
     public void addDiagnosticCriteria(String measurementType, double threshold, String diagnosis) {
-       throw new IllegalStateException("Method not implemented");
+        root = addDiagnosticCriteriaRecursive(root, measurementType, threshold, diagnosis);
+    }
+
+    public DiagnosticNode addDiagnosticCriteriaRecursive(DiagnosticNode node, String measurementType, double threshold, String diagnosis) {
+        if (node == null)
+            return new DiagnosticNode(measurementType, threshold, diagnosis);
+        if (threshold < node.thresholdValue)
+            node.left = addDiagnosticCriteriaRecursive(node.left, measurementType, threshold, diagnosis);
+        else if (threshold >= node.thresholdValue)
+            node.right = addDiagnosticCriteriaRecursive(node.right, measurementType, threshold, diagnosis);
+        return node;
     }
 
     // Method to diagnose patient
@@ -27,10 +37,8 @@ public class DiagnosticDecisionTree {
         return diagnosePatientRecursive(root, measurements, 1);
     }
 
-    private String diagnosePatientRecursive(DiagnosticNode node,
-                                            Map<String, Double> measurements,
-                                            int level) {
-        throw new IllegalArgumentException("Method not implemented");
+    private String diagnosePatientRecursive(DiagnosticNode node, Map<String, Double> measurements, int level) {
+        // ??????????
     }
 
     // Utility method to print tree structure

@@ -7,8 +7,9 @@ public class DiagnosticNode {
     DiagnosticNode left;
     DiagnosticNode right;
 
-    public DiagnosticNode(String measurementType, double thresholdValue) {
+    public DiagnosticNode(String measurementType, double thresholdValue, String diagnosis) {
         this.measurementType = measurementType;
         this.thresholdValue = thresholdValue;
+        this.diagnosis = diagnosis;
     }
 }
